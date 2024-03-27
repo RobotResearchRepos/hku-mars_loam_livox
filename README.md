@@ -1,4 +1,31 @@
 # LOAM-Livox
+
+## 0. Reproducible Package
+Prerequisites:
+* [Docker](https://docs.docker.com/engine/install/ubuntu/)
+* [NVIDIA-Docker](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+* [OSRF-Rocker](https://github.com/osrf/rocker)
+
+Please download the rosbag files from this [link](https://drive.google.com/drive/folders/1HWomWWPSEVvka2QVB2G41iRvSwIt5NWf?usp=sharing).
+
+**Terminal 1:**
+```
+rocker --env ROS_MASTER_URI=http://172.17.0.2:11311 \
+       --env ROS_IP=172.17.0.2 \
+       --nvidia --x11 \
+       ghcr.io/robotresearchrepos/hku-mars_loam_livox:master \
+       roslaunch loam_livox rosbag.launch
+```
+
+**Terminal 2:**
+```
+docker run --rm -it --volume .:/bags \
+           --env ROS_MASTER_URI=http://172.17.0.2:11311 \
+           --env ROS_IP=172.17.0.3 \
+           ros:noetic-ros-core \
+           rosbag play /bags/HKU_ZYM.bag
+```
+
 ## A robust LiDAR Odometry and Mapping (LOAM) package for Livox-LiDAR
 
 <div align="center">
